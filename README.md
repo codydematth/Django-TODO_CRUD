@@ -4,6 +4,7 @@
 The first thing to do is to clone the repository:
 
 $ git clone https://github.com/codydematth/Django-TODO_CRUD.git
+
 $ cd Django-TODO_CRUD
 
 Create a virtual environment to install dependencies in and activate it:
