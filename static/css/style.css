@@ -1,0 +1,15 @@
+#todofield {
+  color: white;
+  padding: 1rem;
+  width: 80%;
+  background-color: transparent;
+  border-bottom-width: 2px;
+  border-color: rgb(59 130 246);
+}
+#todofield:focus {
+  outline: none;
+}
+#todofield:-webkit-autofill {
+  background-color: bisque !important;
+  color: white;
+}

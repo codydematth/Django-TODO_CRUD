@@ -1,0 +1,113 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>TODO LIST</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <script src="{% static 'fontawesomefree/js/all.min.js' %}"></script>
+    <link
+      href="{% static 'fontawesomefree/css/all.min.css' %}"
+      rel="stylesheet"
+      type="text/css"
+    />
+  </head>
+  <body class="bg-slate-700 pt-4 w-full text-center h-screen">
+    <h1 class="text-blue-500 text-center text-2xl font-bold py-4">
+      MY TODO LIST
+    </h1>
+    <!--        TODO LIST Container-->
+    <div class="todo_container w-2/5 border-2 border-white mx-auto">
+      <div
+        class="todoInputContainer py-2 flex justify-between items-center w-full"
+      >
+        <div class="inputBox w-full py-4">
+          <form method="POST">
+            {% csrf_token %} {{form.task}} {% comment %}
+            <input
+              type="text"
+              placeholder="Input your todo here"
+              required
+              class="py-4 w-full outline-none pl-2 bg-transparent text-yellow-500 border-b-2"
+            />
+            {% endcomment %}
+            <button
+              type="submit"
+              class="bg-blue-500 p-4 rounded-md text-white text-center cursor-pointer hover:bg-green-700 font-bold"
+            >
+              Add Task
+            </button>
+          </form>
+        </div>
+      </div>
+      <!--        Todo List-->
+      <div class="todo_list py-2 w-full text-center">
+        {% if todos %} {% for todo in todos %}
+        <div class="flex items-center justify-between py-2">
+          {% if todo.is_complete %}
+
+          <p class="text-lg text-gray-500 pl-8 line-through">{{ todo.task}}</p>
+          {% else %}
+          <p class="text-lg text-white pl-8">{{ todo.task}}</p>
+
+          {% endif %}
+          <div class="todo_option flex justify-between iteem-center pr-4">
+            {% if todo.is_complete %}
+
+            <a
+              class="text-md underline text-gray-500 px-2 cursor-none"
+              href="{% url 'edit_todo' todo.id %}"
+            >
+              <i class="fa-solid fa-pen-to-square fa-lg"></i>
+            </a>
+            {% else %}
+            <a
+              class="text-md underline text-yellow-500 px-2 cursor-pointer"
+              href="{% url 'edit_todo' todo.id %}"
+            >
+              <i class="fa-solid fa-pen-to-square fa-lg"></i>
+            </a>
+
+            {% endif%}
+            <a
+              class="text-md underline text-red-500 cursor-pointer px-2"
+              href="{% url 'delete_todo' todo.id %}"
+            >
+              <i class="fa-solid fa-trash"></i>
+            </a>
+            {% if todo.is_complete %}
+
+            <a
+              class="text-md underline text-gray-500 pl-2 cursor-none"
+              href="{% url 'is_complete' todo.id %}"
+            >
+              <i class="fa-solid fa-check-double fa-xl"></i>
+            </a>
+            {% else %}
+            <a
+              class="text-md underline text-green-500 pl-2"
+              alt="Mark Complete"
+              href="{% url 'is_complete' todo.id %}"
+            >
+              <i class="fa-solid fa-check fa-xl"></i>
+            </a>
+            {% endif%}
+          </div>
+        </div>
+
+        {% endfor %} {% else %}
+        <div class="todo_list py-2 w-full text-center">
+          <p class="text-lg text-white">
+            You do not have any list of todo yet, Please proceed to add a todo
+            to your list
+          </p>
+        </div>
+        {% endif%}
+      </div>
+    </div>
+    <div class="footer_container bottom-0 absolute left-0 right-0">
+      {% block content%} {% include 'includes/footer.html' %} {% endblock %}
+    </div>
+  </body>
+</html>
