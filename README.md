@@ -10,6 +10,7 @@ $ cd Django-TODO_CRUD
 Create a virtual environment to install dependencies in and activate it:
 
 $ python -m install pipenv
+
 $ pipenv shell
 
 Then install the dependencies:
